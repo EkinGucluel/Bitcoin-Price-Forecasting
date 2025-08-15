@@ -7,9 +7,6 @@
 python -m venv myenv
 
 source myenv/bin/activate   # Mac/Linux
-
-# or 
-
-myenv\Scripts\activate  # Windows
+--or myenv\Scripts\activate  # Windows
 
 pip install -r requirements.txt
