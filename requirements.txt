@@ -88,12 +88,13 @@ nest-asyncio==1.6.0
 networkx==3.5
 notebook==7.4.5
 notebook_shim==0.2.4
-numpy==2.3.2
+numpy==1.26.4
 opt_einsum==3.4.0
 optree==0.17.0
 overrides==7.7.0
 packaging==25.0
 pandas==2.3.1
+pandas_ta==0.3.14b0
 pandocfilters==1.5.1
 parso==0.8.4
 patsy==1.0.1
