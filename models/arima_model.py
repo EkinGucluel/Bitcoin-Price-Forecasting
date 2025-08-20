@@ -1,5 +1,3 @@
-# models/arima_model.py
-
 from .base_model import BaseModel
 from statsmodels.tsa.arima.model import ARIMA
 import pmdarima as pm
