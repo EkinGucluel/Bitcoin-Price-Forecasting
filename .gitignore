@@ -4,3 +4,4 @@ venv/
 __pycache__/
 *.pyc
 btcusd_1-min_data.csv
+.vscode/

@@ -2,6 +2,7 @@
 
 from .base_model import BaseModel
 import xgboost as xgb
+from sklearn.model_selection import RandomizedSearchCV
 
 class XgboostModel(BaseModel):
     """

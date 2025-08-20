@@ -1,26 +1,29 @@
-# models/random_forest_model.py
+# models/lightgbm_model.py
 
 from .base_model import BaseModel
-from sklearn.ensemble import RandomForestRegressor
+import lightgbm as lgb
 
-class RandomForestModel(BaseModel):
+class LightGBMModel(BaseModel):
     """
-    Random Forest Regressor model.
+    LightGBM Regressor model.
     """
     def __init__(self, params=None):
         if params is None:
             params = {
-                'n_estimators': 200,    # Number of trees
-                'max_depth': 10,        # Max depth of each tree
-                'min_samples_leaf': 5,  # Min samples at a leaf node
+                'objective': 'regression_l1', # MAE
+                'n_estimators': 1000,
+                'learning_rate': 0.05,
+                'num_leaves': 31,
+                'max_depth': -1,
                 'random_state': 42,
-                'n_jobs': -1            # Use all available CPU cores
+                'n_jobs': -1,
+                'verbose': -1 # Suppress verbose output
             }
-        super().__init__("Random Forest", params)
+        super().__init__("LightGBM", params)
 
     def train(self, X_train, y_train):
         print(f"Training {self.model_name}...")
-        self.model = RandomForestRegressor(**self.params)
+        self.model = lgb.LGBMRegressor(**self.params)
         self.model.fit(X_train, y_train)
         print("Training complete.")
 
