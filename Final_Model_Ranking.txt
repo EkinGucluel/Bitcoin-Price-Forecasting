@@ -1,0 +1,20 @@
+--- FINAL MODEL RANKING (Including Ensembles) ---
+                              Model          RMSE           MAE
+0                 Ensemble Stacking   2903.579589   1951.346508
+1                  Ensemble Average   4408.965863   3498.453302
+2                  GRU (15-day seq)   6053.050844   4851.200502
+3   Bidirectional LSTM (10-day seq)   7000.922463   5910.034421
+4                  GRU (10-day seq)   8319.737181   5583.319332
+5                     Random Forest  19313.250817  10730.283808
+6                 LSTM (10-day seq)  19822.162095  12218.471929
+7                           XGBoost  20724.097238  12201.060001
+8                          LightGBM  20901.771924  12273.938354
+9   Bidirectional LSTM (15-day seq)  22352.367357  17767.923349
+10   Bidirectional LSTM (7-day seq)  27325.750321  13106.048911
+11                LSTM (15-day seq)  29187.114984  15905.238029
+12                          Prophet  34276.646558  26234.985851
+13        Stacked LSTM (15-day seq)  42609.513730  38558.247725
+14        Stacked LSTM (10-day seq)  50101.717093  42647.498691
+15                           SARIMA  51408.951204  41562.847694
+16                            ARIMA  51408.951204  41562.847694
+17                 LSTM (7-day seq)  55732.648830  26864.495740
