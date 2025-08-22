@@ -4,6 +4,7 @@ from prophet.diagnostics import cross_validation, performance_metrics
 import itertools
 import pandas as pd
 
+# The forecast is simply the sum of these components: Forecast = Trend + Seasonality.
 class ProphetModel(BaseModel):
     """
     Prophet model
@@ -18,11 +19,11 @@ class ProphetModel(BaseModel):
 
         # Prophet requires a specific DataFrame format: ['ds', 'y']
         prophet_df = y_train.reset_index()
-        prophet_df.columns = ['ds', 'y']
+        prophet_df.columns = ['ds', 'y'] # ds for datestamp
 
         # Initialize and fit the model
-        self.model = Prophet(**self.params)
-        self.model.fit(prophet_df)
+        self.model = Prophet(**self.params) # (**) → unpacks a dict into keyword arguments.
+        self.model.fit(prophet_df) # Trains on the dataframe
         print("Training complete.")
 
     def tune(self, X_train, y_train):
@@ -38,7 +39,7 @@ class ProphetModel(BaseModel):
             'seasonality_prior_scale': [0.01, 0.1, 1.0, 10.0], # How flexible the seasonality is
         }
 
-        # Create all combinations of parameters
+        # Create all combinations of parameters for a Grid Search
         all_params = [dict(zip(param_grid.keys(), v)) for v in itertools.product(*param_grid.values())]
 
         rmses = [] # List to store the RMSE for each param combination
@@ -47,7 +48,7 @@ class ProphetModel(BaseModel):
         for params in all_params:
             print(f"Testing params: {params}")
 
-            # Initialize model with the current set of parameters
+            # Initialize and train the model with the current set of parameters
             m = Prophet(**params).fit(prophet_df)
 
             # Perform cross-validation

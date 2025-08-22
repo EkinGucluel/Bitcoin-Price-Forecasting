@@ -38,7 +38,7 @@ class BidirectionalLstmModel(BaseModel):
         model.add(Bidirectional(LSTM(units=self.params['lstm_units'], activation='relu')))
         model.add(Dropout(self.params['dropout_rate']))
 
-        # The output is now a single neuron to predict one price.
+        # The output is a single neuron to predict one price.
         model.add(Dense(units=1))
 
         model.compile(optimizer='adam', loss='mean_squared_error')

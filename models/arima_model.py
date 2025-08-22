@@ -15,10 +15,11 @@ class ArimaModel(BaseModel):
     # ARIMA's train method is different, it only needs the target series (y_train)
     def train(self, X_train, y_train):
         print(f"Training {self.model_name} by finding the best parameters...")
-        y_train_with_freq = y_train.asfreq('D')
+        y_train_with_freq = y_train.asfreq('D') # Ensures date index is correct
 
         y_train_with_freq = y_train_with_freq.ffill()
         # The .fit() is done inside the pm.auto_arima()
+        # Test different parameters and finds the best one that fits the data.
         auto_model = pm.auto_arima(
             y_train_with_freq,
             start_p=1, start_q=1,

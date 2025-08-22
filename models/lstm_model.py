@@ -23,18 +23,18 @@ class LstmModel(BaseModel):
             }
         super().__init__("Vanilla LSTM", params)
 
+    # A helper function to transform the 2D data (days, features) into 3D data (samples, timesteps, features).
     def _create_sequences(self, X, y, sequence_length):
         Xs, ys = [], []
         for i in range(len(X) - sequence_length):
-            Xs.append(X.iloc[i:(i + sequence_length)].values)
-            ys.append(y.iloc[i + sequence_length])
-        return np.array(Xs), np.array(ys)
+            Xs.append(X.iloc[i:(i + sequence_length)].values) # Grabs a chunk of 'sequence_length' rows for the input.
+            ys.append(y.iloc[i + sequence_length]) # Grabs the single target value that comes right after that chunk.
+        return np.array(Xs), np.array(ys) # Converts the lists of windows into NumPy arrays, the format the model needs.
 
     def _build_model(self, input_shape):
         model = Sequential()
         # The input shape is now (sequence_length, num_features)
         model.add(Input(shape=input_shape))
-
         # An LSTM layer
         model.add(LSTM(units=self.params['lstm_units'], activation='relu'))
         model.add(Dropout(self.params['dropout_rate']))
@@ -50,7 +50,7 @@ class LstmModel(BaseModel):
         X_train_seq, y_train_seq = self._create_sequences(X_train, y_train, self.params['sequence_length'])
 
         # Build the model architecture
-        input_shape = (X_train_seq.shape[1], X_train_seq.shape[2])
+        input_shape = (X_train_seq.shape[1], X_train_seq.shape[2]) # Determines the input shape from the newly created sequence data
         self.model = self._build_model(input_shape)
 
         print("Model Summary:")
@@ -58,8 +58,8 @@ class LstmModel(BaseModel):
 
         # Fit the model
         self.model.fit(
-            X_train_seq,
-            y_train_seq,
+            X_train_seq, # The 3D input data
+            y_train_seq, # 1D target data
             epochs=self.params['epochs'],
             batch_size=self.params['batch_size'],
             verbose=1 # Show the training progress

@@ -16,7 +16,7 @@ class RandomForestModel(BaseModel):
 
     def train(self, X_train, y_train):
         print(f"Training {self.model_name} with params: {self.params}")
-        self.model = RandomForestRegressor(**self.params)
+        self.model = RandomForestRegressor(**self.params) # (**) → unpacks a dict into keyword arguments.
         self.model.fit(X_train, y_train)
         print("Training complete.")
 
@@ -35,8 +35,8 @@ class RandomForestModel(BaseModel):
         # Set up the RandomizedSearchCV
         tuner = RandomizedSearchCV(
             estimator=RandomForestRegressor(random_state=42, n_jobs=-1),
-            param_distributions=param_grid,
-            n_iter=25, # Try 25 different combinations
+            param_distributions=param_grid, # The search space that was defined previously
+            n_iter=25, # 25 different combinations
             cv=3,      # Use 3-fold cross-validation
             scoring='neg_root_mean_squared_error',
             verbose=2,
